@@ -284,7 +284,7 @@ export default {
       getSchool().then((res) => {
         console.log(res.data.data)
         this.schoolList = res.data.data.length > 0 ? res.data.data : []
-        // console.log(this.schoolList);
+        // console.log('aaa' + this.schoolList);
       })
     },
     addOneDay () {

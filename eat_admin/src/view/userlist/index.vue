@@ -3,13 +3,14 @@
       <Card>
         <tables ref="tables" editable search-place="top" v-model="tableData" :columns="columns"/>
         <Button style="margin: 10px 0;" type="primary" @click="exportExcel">导出为Csv文件</Button>
+    <Button v-for="item in schoolList" :value="item.id" :key="item.id" >{{item.title}}</Button>
       </Card>
     </div>
 </template>
 
 <script>
 import Tables from '_c/tables'
-import { getUser } from '@/api/data'
+import { getUser ,getSchool } from '@/api/data'
 
 export default {
   name: 'index',
@@ -87,7 +88,7 @@ export default {
                 h("DropdownMenu", {
                   slot: "list"
                 }, [
-                  h("DropdownItem", {}, "北京大学"),
+                  h("DropdownItem", {}, "11"),
                   h("DropdownItem", {}, "清华大学")
                 ])
               ])
@@ -162,9 +163,6 @@ export default {
       tableData: []
     }
   },
-  create() {
-    this.getSchoolList ()
-  },
   methods: {
     exportExcel () {
       this.$refs.tables.exportCsv({
@@ -177,13 +175,17 @@ export default {
         this.tableData = res.data.data.length > 0 ? res.data.data : []
       })
     },
-    getSchoolList () {
-      alert(123)  
+    getSchool () {
+      getSchool().then((res) => {
+        console.log(res.data.data)
+        this.schoolList = res.data.data.length > 0 ? res.data.data : []
+        console.log('aaa' + this.schoolList);
+      })
     }
   },
   mounted () {
     this.getUser(),
-    this.getSchoolList ()
+    this.getSchool()
   }
 }
 </script>
