@@ -3,14 +3,23 @@
       <Card>
         <tables ref="tables" editable search-place="top" v-model="tableData" :columns="columns"/>
         <Button style="margin: 10px 0;" type="primary" @click="exportExcel">导出为Csv文件</Button>
-    <Button v-for="item in schoolList" :value="item.id" :key="item.id" >{{item.title}}</Button>
+
+    <Dropdown trigger="click">
+      <a href="javascript:void(0)">
+        1110
+        <Icon :size="18" type="md-arrow-dropdown" />
+      </a>
+      <DropdownMenu slot="list">
+        <DropdownItem v-for="item in schoolList" :value="item.id" :key="item.id" >{{item.title}}</DropdownItem>
+      </DropdownMenu>
+    </Dropdown>
       </Card>
     </div>
 </template>
 
 <script>
 import Tables from '_c/tables'
-import { getUser ,getSchool } from '@/api/data'
+import { getUser, getSchool } from '@/api/data'
 
 export default {
   name: 'index',
@@ -18,6 +27,7 @@ export default {
     Tables
   },
   data () {
+    schoolView: 'false'
     schoolList: []
     return {
       modal1: false,
@@ -77,19 +87,25 @@ export default {
                   trigger: "click"
                 }
               }, [
-                h("a", {}, [
+                h("a", {
+                    on: {
+                      click: () => {
+                        alert(11)
+                      }
+                }
+                }, [
                   h("span", params.row.schoolName),
                   h("Icon", {
                     props: {
                       type: "ios-arrow-down"
-                    },
+                    }
                   })
                 ]),
                 h("DropdownMenu", {
                   slot: "list"
                 }, [
                   h("DropdownItem", {}, "11"),
-                  h("DropdownItem", {}, "清华大学")
+                  h("DropdownItem", {}, "22")
                 ])
               ])
             ])

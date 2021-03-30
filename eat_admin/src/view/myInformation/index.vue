@@ -186,6 +186,35 @@ export default {
             ])
           },
           editable: false
+        },
+        {
+          title: '审核结果',
+          key: 'action',
+          render: (h, params) => {
+            return h('div', [
+              h('Button', {
+                props: {
+                  type: 'primary',
+                  size: 'small'
+                },
+                style: {
+                  marginRight: '5px'
+                },
+                on: {
+                  click: () => {}
+                }
+              }, '审核通过'),
+              h('Button', {
+                props: {
+                  type: 'error',
+                  size: 'small'
+                },
+                on: {
+                  click: () => {}
+                }
+              }, '审核失败')
+            ])
+          }
         }
       ],
       tableData: []
