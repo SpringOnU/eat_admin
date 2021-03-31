@@ -287,6 +287,7 @@ export default {
         // console.log('aaa' + this.schoolList);
       })
     },
+    
     addOneDay () {
       let data = this.$qs.stringify({
         imgs: this.codeImg,

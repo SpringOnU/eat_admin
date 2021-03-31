@@ -4,17 +4,16 @@
         <tables ref="tables" editable search-place="top" v-model="tableData" :columns="columns"/>
         <Button style="margin: 10px 0;" type="primary" @click="exportExcel">导出为Csv文件</Button>
 
-    <Dropdown trigger="click">
-      <a href="javascript:void(0)">
-        1110
-        <Icon :size="18" type="md-arrow-dropdown" />
-      </a>
-      <DropdownMenu slot="list">
-        <DropdownItem v-for="item in schoolList" :value="item.id" :key="item.id" >{{item.title}}</DropdownItem>
-      </DropdownMenu>
-    </Dropdown>
+      <Modal v-model="dropSchool">
+        <Dropdown>
+          <DropdownMenu slot="list" >
+              <DropdownItem v-for="item in schoolList" :value="item.id" :key="item.id" >{{item.title}}</DropdownItem>
+          </DropdownMenu>
+        </Dropdown>
+      </Modal>
       </Card>
     </div>
+
 </template>
 
 <script>
@@ -27,14 +26,8 @@ export default {
     Tables
   },
   data () {
-    schoolView: 'false'
-    schoolList: []
     return {
-      modal1: false,
-      modal2: false,
-      codeImg: '',
-      codeImgEdit: '',
-      editId: '',
+      schoolList: [],
       columns: [
         { title: 'id', width: 100, key: 'id', sortable: false },
         { title: 'openid',
@@ -79,18 +72,10 @@ export default {
           key: 'schoolName',
           render: (h, params) => {
             return h('div', [
-              h("Dropdown", {
-                style: {
-                  marginLeft: "4px"
-                },
-                props: {
-                  trigger: "click"
-                }
-              }, [
-                h("a", {
+              h("a", {
                     on: {
                       click: () => {
-                        alert(11)
+                        this.dropSchool()
                       }
                 }
                 }, [
@@ -100,14 +85,7 @@ export default {
                       type: "ios-arrow-down"
                     }
                   })
-                ]),
-                h("DropdownMenu", {
-                  slot: "list"
-                }, [
-                  h("DropdownItem", {}, "11"),
-                  h("DropdownItem", {}, "22")
                 ])
-              ])
             ])
           },
           editable: false },
@@ -197,6 +175,10 @@ export default {
         this.schoolList = res.data.data.length > 0 ? res.data.data : []
         console.log('aaa' + this.schoolList);
       })
+    },
+    dropSchool () {
+      alert(123)
+      this.visible=false
     }
   },
   mounted () {
