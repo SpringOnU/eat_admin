@@ -4,13 +4,11 @@
         <tables ref="tables" editable search-place="top" v-model="tableData" :columns="columns"/>
         <Button style="margin: 10px 0;" type="primary" @click="exportExcel">导出为Csv文件</Button>
 
-      <Modal v-model="dropSchool">
-        <Dropdown>
+        <!-- <Dropdown visible="true">
           <DropdownMenu slot="list" >
-              <DropdownItem v-for="item in schoolList" :value="item.id" :key="item.id" >{{item.title}}</DropdownItem>
+              <DropdownItem v-for="item in schoolList" :value="item.id" :key="item.id">{{item.title}}</DropdownItem>
           </DropdownMenu>
-        </Dropdown>
-      </Modal>
+        </Dropdown> -->
       </Card>
     </div>
 
@@ -71,21 +69,27 @@ export default {
         { title: 'schoolName',
           key: 'schoolName',
           render: (h, params) => {
-            return h('div', [
-              h("a", {
-                    on: {
-                      click: () => {
-                        this.dropSchool()
-                      }
-                }
-                }, [
-                  h("span", params.row.schoolName),
-                  h("Icon", {
-                    props: {
-                      type: "ios-arrow-down"
+            return h('Dropdown',
+            {
+              props:{
+                trigger: "click"
+              }
+            },[
+              h("a",params.row.schoolName),
+              h('Icon',{
+                  props: {
+                    type: "ios-arrow-down"
+                  }
+              }),
+              h("DropdownMenu",{
+                slot: "list"
+              },this.schoolList.map(function (item,index) {
+                  return h("dropdownItem", {
+                    domProps:{
+                      href: item
                     }
-                  })
-                ])
+                  },item.title)
+                }))
             ])
           },
           editable: false },
