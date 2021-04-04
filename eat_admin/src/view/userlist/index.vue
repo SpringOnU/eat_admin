@@ -85,9 +85,13 @@ export default {
                 slot: "list"
               },this.schoolList.map(function (item,index) {
                   return h("dropdownItem", {
-                    domProps:{
+                    domProps: {
                       href: item
-                    }
+                    },
+                    on: {
+                        'onclick':
+                          alert(123)
+                      }
                   },item.title)
                 }))
             ])
@@ -179,10 +183,6 @@ export default {
         this.schoolList = res.data.data.length > 0 ? res.data.data : []
         console.log('aaa' + this.schoolList);
       })
-    },
-    dropSchool () {
-      alert(123)
-      this.visible=false
     }
   },
   mounted () {
